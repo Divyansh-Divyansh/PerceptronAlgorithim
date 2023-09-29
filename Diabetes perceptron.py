@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[8]:
+# In[68]:
 
 
 import pandas as pd
@@ -9,13 +9,13 @@ import pandas as pd
 diabetes = pd.read_csv("C:\\Users\\Jitendra Sharma\\Downloads\\archive\\diabetes.csv")
 
 
-# In[9]:
+# In[69]:
 
 
 diabetes
 
 
-# In[22]:
+# In[70]:
 
 
 import numpy as np 
@@ -59,7 +59,7 @@ class Perceptron:
         return np.where(x>=0, 1, 0)
 
 
-# In[3]:
+# In[71]:
 
 
 def accuracy(y_true, y_pred):
@@ -67,7 +67,7 @@ def accuracy(y_true, y_pred):
     return accuracy
 
 
-# In[66]:
+# In[72]:
 
 
 from sklearn.model_selection import train_test_split
@@ -88,7 +88,7 @@ X_scaled = scaler.fit_transform(X)
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size = 0.4, random_state=42)
 
 
-# In[62]:
+# In[73]:
 
 
 # Initialize class.
@@ -99,8 +99,33 @@ predictions = p.predict(X_test)
 print("Perceptron classification accuracy", round(accuracy(y_test, predictions)*100,2))
 
 
-# In[ ]:
+# In[76]:
 
 
+import seaborn as sns
+sns.pairplot(data=diabetes,vars=['Glucose', 'SkinThickness', 'DiabetesPedigreeFunction'], hue = 'Outcome')
+plt.show()
 
+
+# In[85]:
+
+
+import matplotlib.pyplot as plt
+matrix = diabetes.iloc[:,0:8].corr()
+matrix
+plt.figure(figsize=(8,8))
+sns.heatmap(diabetes, annot = True)
+plt.show()
+
+
+# In[89]:
+
+
+from sklearn.metrics import confusion_matrix
+
+y = y_test
+ybar = predictions
+
+con = confusion_matrix(y,ybar)
+print(con)
 
